@@ -12,11 +12,6 @@ class Flight:
 		self.duration = duration
 
 
-class FlightPathBroken(Exception):
-	def __init__(self, *args: object) -> None:
-		super().__init__(*args)
-
-
 class FlightMap:
 	def __init__(self) -> None:
 		# dictionnaire des aéroports
@@ -112,4 +107,17 @@ class FlightMap:
 
 		return destinations
 
+class FlightPath: 
+	def __init__(self, src_airport: Airport) -> None:
+		self.src_airport = src_airport
+		self.path = []
 
+	def add(self, dst_airport : Airport, via_flight : Flight) -> None :
+		pass
+
+
+class FlightPathBroken(Exception):
+	pass
+
+class FlightPathDuplicate(Exception):
+	pass
