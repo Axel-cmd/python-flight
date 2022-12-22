@@ -99,9 +99,40 @@ class FlightMap:
 
       return destinations
 
-    def paths(src_airport_code: str, dst_airport_code: str) -> list[FlightPath]:
-        pass
+    def paths(self, src_airport_code: str, dst_airport_code: str) -> list[FlightPath]:
+
+      paths = []
+
+      # initialise les structures de données
+      flight_paths = {}
+      airports_not_visited = self.__airports.copy()
+      airports_future = {src_airport_code}
+      airports_visited = set()
+
+      while airports_future:
+
+        # aéroports à visiter prochainement
+        airports_next = set()
+
+        for airport in airports_future:
+            
+            if not flight_paths[airport]:
+                flight_paths[airport] = FlightPath(airport)
+
+            for flight in self.flights_where(airport):
+                if flight.dst_code not in airports_visited:
+                    pass
+
+
+
+
+
+        # mettre à jour les données
+
+        airports_visited |= airports_future
         
+
+      return paths
     
 
 

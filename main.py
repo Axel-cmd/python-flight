@@ -24,16 +24,22 @@ def main():
 	flights = flight_map.flights_where("CDG")
 	# print(flights)
 
-	for flight in flights:
-		print(flight)
+	# for flight in flights:
+	# 	print(flight)
 
-	flight_path = FlightPath(airport)
-	flight_path.add(airport2, flights[2])
+	# flight_path = FlightPath(airport)
+	# flight_path.add(airport2, flights[2])
 
-	print(flight_path.flights())
-	print(flight_path.airports())
-	print(flight_path.steps())
-	print(flight_path.duration())
+	# print(flight_path.flights())
+	# print(flight_path.airports())
+	# print(flight_path.steps())
+	# print(flight_path.duration())
+
+	maps = flight_map.paths("CDG", "AMS")
+
+	for map in maps:
+		print(map)
+
 
 
 if __name__ == "__main__":
