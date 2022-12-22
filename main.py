@@ -1,4 +1,5 @@
-from flight import FlightMap, FlightPath
+from flight_map import FlightMap
+from flight_path import FlightPath
 
 def main(): 
 
@@ -28,10 +29,6 @@ def main():
 
 	flight_path = FlightPath(airport)
 	flight_path.add(airport2, flights[2])
-
-
-
-
 
 	print(flight_path.flights())
 	print(flight_path.airports())
