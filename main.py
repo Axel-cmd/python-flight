@@ -8,8 +8,15 @@ def main():
 	flight_map.import_airports('public/aeroports.csv')
 	flight_map.import_flights('public/flights.csv')
 
-	print(flight_map.airport_find("SEA"))
-	print(flight_map.airport_find("R"))
+	# print(flight_map.airport_find("SEA"))
+
+
+	print(flight_map.flights_where("SEA"))
+
+	print(flight_map.flight_exist("AKL", "CPT"))
+	print(flight_map.flight_exist("AKL", "CDG"))
+
+	print(flight_map.airports_from("CDG"))
 
 
 

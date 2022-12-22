@@ -52,17 +52,15 @@ class FlightMap:
 
 				origin, destination = formatString(origin), formatString(destination)
 
-				duration = float(duration)
-
 				try :
-					origin_airport = self.__airports[origin]
-					destination_airport = self.__airports[destination]
-				except KeyError:
-					print(f"Aéroport introuvable pour le vol de {origin} vers {destination}")
+					duration = float(duration)
+				except ValueError:
+					print('Erreur dans le CSV')
 					continue
 
 
-				flight = Flight(origin_airport, destination_airport, duration)
+
+				flight = Flight(origin, destination, duration)
 
 				self.__flights.append(flight)
 
@@ -73,6 +71,40 @@ class FlightMap:
 		except KeyError:
 			print(f"L'aéroport {airport_code} n'a pas été trouvé !")
 			return None
+	
+	def flight_exist(self, src_airport_code: str, dst_airport_code: str) -> bool :
+		for flight in self.__flights:
+			if flight.src_code == src_airport_code \
+				and flight.dst_code == dst_airport_code:
+				return True
+			else : 
+				return False	
 			
+	def flights_where(self, airport_code: str) -> list[Flight]:
+		flights = []
+		for flight in self.__flights:
+			if flight.src_code == airport_code or flight.dst_code == airport_code:
+
+				flights.append(flight)
+		return flights
+
+	def airports_from(self, airport_code: str) -> list[Airport]:
+		destinations = []
+
+		for flight in self.__flights:
+
+			if flight.src_code == airport_code:
+				airport = self.__airports[flight.dst_code]
+			elif flight.dst_code == airport_code:
+				airport =  self.__airports[flight.src_code]
+			else : 
+				continue
+
+			if airport not in destinations:
+				print(airport.code)
+				destinations.append(airport)
+
+
+		return destinations
 
 
