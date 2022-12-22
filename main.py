@@ -17,6 +17,7 @@ def main():
 	print(flight_map.flight_exist("AKL", "CDG"))
 
 	print(flight_map.airports_from("CDG"))
+	print(flight_map.airports_from("CD"))
 
 
 
