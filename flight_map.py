@@ -109,22 +109,25 @@ class FlightMap:
       airports_future = {src_airport_code}
       airports_visited = set()
 
+      if len(flight_paths) == 0:
+        flight_paths[src_airport_code] = FlightPath(src_airport_code)
+
+      #tant qu'il y a des aéroport à visité 
       while airports_future:
 
         # aéroports à visiter prochainement
         airports_next = set()
 
+        #on parcours les aéroport à visiter 
         for airport in airports_future:
+          # pour chaque prochain aéroport accessible 
+          for flight in self.flights_where(airport):
+            # s'y la destination n'a pas déjà été visité 
+            if flight.dst_code not in airports_visited:
+              # on l'ajoute dans les prochaines destinations
+              airports_next.add(flight.dst_code)
             
-            if not flight_paths[airport]:
-                flight_paths[airport] = FlightPath(airport)
-
-            for flight in self.flights_where(airport):
-                if flight.dst_code not in airports_visited:
-                    pass
-
-
-
+              next_flight_path = flight_paths[flight.src_code].copy() 
 
 
         # mettre à jour les données
