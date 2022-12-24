@@ -1,4 +1,5 @@
 import csv
+import copy
 from airport import Airport
 from flight import Flight
 from flight_path import FlightPath
@@ -122,18 +123,32 @@ class FlightMap:
         for airport in airports_future:
           # pour chaque prochain aéroport accessible 
           for flight in self.flights_where(airport):
-            # s'y la destination n'a pas déjà été visité 
-            if flight.dst_code not in airports_visited:
+
+            # si on a trouvé la destination 
+            if flight.dst_code == dst_airport_code:
+                dst_airport = self.airport_find(flight.dst_code)
+                next_flight_path = copy.copy(flight_paths[flight.src_code])
+                next_flight_path.add(dst_airport, flight)
+                paths.append(next_flight_path)
+                pass
+            # si la destination n'a pas déjà été visité 
+            elif flight.dst_code not in airports_visited:
               # on l'ajoute dans les prochaines destinations
               airports_next.add(flight.dst_code)
-            
-              next_flight_path = flight_paths[flight.src_code].copy() 
+              # on récupère l'aéroport de destination
+              dst_airport = self.airport_find(flight.dst_code)
+              next_flight_path = copy.copy(flight_paths[flight.src_code])
+              next_flight_path.add(dst_airport, flight)
+              flight_paths[flight.dst_code] = next_flight_path
+        
+          del flight_paths[flight.src_code]
 
 
         # mettre à jour les données
 
         airports_visited |= airports_future
-        
+        airports_future = airports_next
+        # airports_not_visited        
 
       return paths
     
